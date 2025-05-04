@@ -1,0 +1,92 @@
+/* style-form.css */
+
+.site-header {
+    background-color: #111;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #333;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .site-title {
+    font-size: 24px;
+    color: #00ffe7;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffe7;
+  }
+  
+  .form-section {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #1c1c1c;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    animation: slideFadeIn 1s ease-out forwards;
+  }
+  
+  form label {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  
+  form input,
+  form select {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: #eee;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 12px;
+    width: 100%;
+    background-color: #00ffe7;
+    color: #111;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 10px #00ffe7;
+  }
+  
+  .site-footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #111;
+    color: #666;
+    font-size: 14px;
+    border-top: 1px solid #333;
+  }
+  
+  @keyframes slideFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
