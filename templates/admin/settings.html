@@ -1,0 +1,72 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<div class="system-settings">
+    <h2>System Settings</h2>
+    
+    <!-- Print Settings Card -->
+    <div class="card">
+        <h3>Print Defaults</h3>
+        <form method="POST" action="{{ url_for('update_settings') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            
+            <div class="form-group">
+                <label>Default Print Mode</label>
+                <select name="default_mode">
+                    <option value="noir" {% if settings.default_mode == 'noir' %}selected{% endif %}>
+                        Black & White
+                    </option>
+                    <option value="couleur" {% if settings.default_mode == 'couleur' %}selected{% endif %}>
+                        Color
+                    </option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Default Duplex Mode</label>
+                <select name="default_duplex">
+                    <option value="non" {% if settings.default_duplex == 'non' %}selected{% endif %}>
+                        Single-Sided
+                    </option>
+                    <option value="oui" {% if settings.default_duplex == 'oui' %}selected{% endif %}>
+                        Double-Sided
+                    </option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Max File Size (MB)</label>
+                <input type="number" name="max_file_size" 
+                       value="{{ settings.max_file_size }}" min="1" max="50">
+            </div>
+            
+            <button type="submit">Save Settings</button>
+        </form>
+    </div>
+
+    <!-- System Maintenance Card -->
+    <div class="card danger-zone">
+        <h3>System Maintenance</h3>
+        <div class="form-group">
+            <button id="clear-completed" class="btn-warning">
+                Clear Completed Jobs
+            </button>
+        </div>
+        <div class="form-group">
+            <button id="export-data" class="btn-secondary">
+                Export Database
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// JavaScript for handling maintenance actions
+document.getElementById('clear-completed').addEventListener('click', async () => {
+    if (confirm('Clear all completed print jobs?')) {
+        await fetch('/admin/clear_completed', { method: 'POST' });
+        location.reload();
+    }
+});
+</script>
+{% endblock %}

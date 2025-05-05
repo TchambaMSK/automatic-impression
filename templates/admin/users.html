@@ -1,0 +1,66 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<div class="user-management">
+    <h2>User Management</h2>
+    
+    <!-- User Creation Form -->
+    <div class="card">
+        <h3>Add New User</h3>
+        <form method="POST" action="{{ url_for('add_user') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Role</label>
+                <select name="role">
+                    <option value="user">Standard User</option>
+                    <option value="admin">Administrator</option>
+                </select>
+            </div>
+            
+            <button type="submit">Create User</button>
+        </form>
+    </div>
+
+    <!-- Users List -->
+    <div class="card">
+        <h3>Existing Users</h3>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for username, details in users.items() %}
+                <tr>
+                    <td>{{ username }}</td>
+                    <td>{{ details.role }}</td>
+                    <td>{{ details.created_at }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('edit_user', username=username) }}" class="btn-edit">✏️</a>
+                        <form class="inline-form" action="{{ url_for('delete_user') }}" method="POST">
+                            <input type="hidden" name="username" value="{{ username }}">
+                            <button type="submit" class="btn-delete">🗑️</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

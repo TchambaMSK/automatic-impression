@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="branding">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+            <h1>MJCEMS Admin</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('manage_users') }}">Users</a>
+            <a href="{{ url_for('system_settings') }}">Settings</a>
+            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="admin-footer">
+        <p>System Version: 1.0.0 | Last Updated: {{ config.BUILD_DATE }}</p>
+    </footer>
+</body>
+</html>
