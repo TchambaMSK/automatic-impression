@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-queue.css') }}">
+</head>
+<body>
+    <header class="admin-header">
+        <h1>Print Queue Dashboard</h1>
+        <nav>
+            <span>Welcome, {{ session.username }}</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        <section class="stats">
+            <div class="stat-card pending">
+                <h3>Pending</h3>
+                <p>{{ stats.pending }}</p>
+            </div>
+            <div class="stat-card printing">
+                <h3>Printing</h3>
+                <p>{{ stats.printing }}</p>
+            </div>
+            <div class="stat-card completed">
+                <h3>Completed</h3>
+                <p>{{ stats.completed }}</p>
+            </div>
+            <div class="stat-card total">
+                <h3>Total Jobs</h3>
+                <p>{{ stats.total }}</p>
+            </div>
+        </section>
+
+        <section class="queue-section">
+            <h2>Print Queue</h2>
+            <div class="queue-actions">
+                <button id="refresh-btn">Refresh</button>
+            </div>
+            
+            <table class="queue-table">
+                <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>User</th>
+                        <th>Details</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in queue %}
+                    <tr data-filename="{{ item.filename }}">
+                        <td>{{ item.filename }}</td>
+                        <td>{{ item.user }}</td>
+                        <td>
+                            <strong>Copies:</strong> {{ item.copies }}<br>
+                            <strong>Pages:</strong> {{ item.pages }}<br>
+                            <strong>Mode:</strong> {{ item.mode|capitalize }}<br>
+                            <strong>Duplex:</strong> {{ 'Yes' if item.duplex == 'oui' else 'No' }}
+                        </td>
+                        <td class="status-cell">
+                            <span class="status-badge {{ item.status }}">{{ item.status|capitalize }}</span>
+                        </td>
+                        <td>
+                            <select class="status-select">
+                                <option value="pending" {% if item.status == 'pending' %}selected{% endif %}>Pending</option>
+                                <option value="printing" {% if item.status == 'printing' %}selected{% endif %}>Printing</option>
+                                <option value="completed" {% if item.status == 'completed' %}selected{% endif %}>Completed</option>
+                            </select>
+                            <button class="notes-btn" data-filename="{{ item.filename }}">Add Notes</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>
