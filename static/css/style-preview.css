@@ -1,32 +1,59 @@
-/* style-preview.css */
 #pdf-preview {
-    width: 100%;
-    height: 400px;
-    background-color: #222;
-    margin-top: 20px;
-    border: 2px solid #00ffe7;
-    border-radius: 10px;
-    display: none;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  background-color: #222;
+  margin: 20px auto;
+  border: 2px solid #00ffe7;
+  border-radius: 10px;
+  display: none;
+  overflow: auto;
+  position: relative;
+}
+
+#pdf-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+#page-counter {
+  color: #00ffe7;
+  font-weight: bold;
+  margin: 0 10px;
+  font-size: 14px;
+}
+
+.nav-button {
+  background-color: #00ffe7;
+  color: #111;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  min-width: 100px;
+}
+
+.nav-button:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  #pdf-preview {
+    height: 300px;
   }
   
   #pdf-navigation {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 15px;
+    gap: 10px;
   }
   
-  button.nav-button {
-    background-color: #00ffe7;
-    color: #111;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
+  .nav-button {
+    padding: 8px 12px;
+    min-width: 80px;
   }
-  
-  button.nav-button:disabled {
-    background-color: #444;
-  }
-  
+}

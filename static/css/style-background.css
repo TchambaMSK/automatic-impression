@@ -1,9 +1,10 @@
-/* style-background.css */
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0f0f0f, #1e1e1e);
-    color: #eee;
-    overflow-x: hidden;
-  }
-  
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0f0f, #1e1e1e);
+  color: #eee;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
