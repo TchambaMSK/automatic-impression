@@ -82,7 +82,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 def is_locked_out(ip):
-    """Check if IP is temporarily locked out"""
     with open(app.config['CONFIG_FILE'], 'r') as f:
         config = json.load(f)
     
@@ -90,7 +89,7 @@ def is_locked_out(ip):
         attempts = config['security']['login_attempts'][ip]
         if attempts['count'] >= app.config['MAX_LOGIN_ATTEMPTS']:
             time_elapsed = (datetime.now() - datetime.fromisoformat(attempts['last_attempt'])).seconds
-            return time_elapsed < app.config['LOCKOUT_TIME']]
+            return time_elapsed < app.config['LOCKOUT_TIME']  # Fixed line
     return False
 
 def record_login_attempt(ip, success):
